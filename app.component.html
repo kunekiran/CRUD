@@ -1,0 +1,50 @@
+<div class="container">
+  <br>
+  <input type="text" [(ngModel)]="t1" placeholder="Username" class="form-control">
+  <br>
+  <input type="text"  [(ngModel)]="t2" placeholder="City" class="form-control">
+<br>
+<input type="button" value="Insert" (click)="funins()" class="btn btn-primary">
+&nbsp;<input type="button" value="Delete All" (click)="fundel()" class="btn btn-danger">
+<br>
+<div *ngIf="tmp;else abc">
+  <table class="table table-striped" >
+<th>Username</th>
+<th>City</th>
+<th>Operations</th>
+<tr *ngFor="let rec of table_data | paginate:{itemsPerPage:5,currentPage:pno}" >
+  <ng-container *ngIf="rec._id!=tmpid;else xyz">  
+  <td >{{rec.uname}}</td>
+    <td >{{rec.city}}</td>
+    <td>
+      <span class="fa fa-trash" 
+      (click)="fundelrow(rec._id)" style="cursor:pointer;font-size:25px;color:red"></span>
+      &nbsp;
+      <span class="fa fa-edit" 
+      (click)="funedit(rec)" style="cursor:pointer;font-size:25px;color:blue"></span>
+    </td>
+  </ng-container>
+</tr>
+</table>
+<pagination-controls (pageChange)="pno=$event"></pagination-controls>
+  </div>
+  <ng-template #abc>
+    <span style="color:red">No data...</span>
+  </ng-template>
+<ng-template #xyz>
+  <td>
+    <input [(ngModel)]="txt1" type="text" class="form-control" style="width:300px">
+  </td>
+  <td>
+    <input  [(ngModel)]="txt2" type="text" class="form-control"  style="width:300px">
+  </td>
+  <td>
+    <span class="fa fa-close" 
+    (click)="tmpid=0" style="cursor:pointer;font-size:25px;color:green"></span>
+    &nbsp;
+    <span class="fa fa-save" 
+    (click)="funsave()" style="cursor:pointer;font-size:25px;color:orange"></span>
+  </td>
+</ng-template>
+{{tmpid}}
+</div>
